@@ -1,0 +1,36 @@
+// ==========================================================================
+// Media Queries
+// ==========================================================================
+
+@media only screen and (min-width: 35em) {
+    // Style adjustments for viewports that meet the condition
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 144dpi) {
+    // Style adjustments for high resolution devices
+}
+
+@media (max-width: 480px) {
+    // Phones (iPhone)
+}
+
+@media (max-width: 767px) {
+    // Tablets (iPad)
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+    // Larger tablets and smaller monitors
+}
+
+@media (max-width: 979px) {
+    // Larger tablets and smaller monitors
+}
+
+@media (min-width: 980px) {
+    // Desktops and laptops
+}
+
+@media (min-width: 1200px) {
+    // Desktops and laptops
+}

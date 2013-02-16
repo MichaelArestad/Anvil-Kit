@@ -1,0 +1,82 @@
+// Below, you can choose from either using global form styles or class-driven
+// form styles. By default, the global styles are on.
+
+// ==========================================================================
+// Global form elements
+// ==========================================================================
+
+form {
+    max-width: 600px;
+    padding:20px;
+    border: 1px solid #95a1ae;
+    @include border-radius(9px);
+    @include gradient(#e4eff5, #d4e4eb);
+    @include box-shadow(rgba(000,000,000,0.3) 0 1px 2px, inset rgba(255,255,255,0.4) 0 0px 0);
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+}
+
+input[type="text"],
+textarea {
+    margin-bottom:20px;
+    padding:8px;
+    border: 1px solid #a6b7c0;
+    @include border-radius(3px);
+    color: #a6b7c0;
+    background: #f3f6f8;
+    @include box-shadow(rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px);
+}
+
+input {
+    &.input-wide {
+        width: 100%;
+    }
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    background: #fff;
+    color: #5c6671;
+    outline: none;
+}
+
+textarea {
+    width: 100%;
+}
+
+// ==========================================================================
+// Global form elements
+// ==========================================================================
+
+// .form-container {
+//    max-width: 600px;
+//    padding:20px;
+//    border: 1px solid #95a1ae;
+//    @include border-radius(9px);
+//    @include gradient(#e4eff5, #d4e4eb);
+//    @include box-shadow(rgba(000,000,000,0.3) 0 1px 2px, inset rgba(255,255,255,0.4) 0 0px 0);
+//}
+
+//.form-field {
+//    margin-bottom:20px;
+//    padding:8px;
+//    border: 1px solid #a6b7c0;
+//    @include border-radius(3px);
+//    color: #a6b7c0;
+//    background: #f3f6f8;
+//    @include box-shadow(rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px);
+//}
+
+// textarea.form-field {
+//    width: 100%;
+//}
+
+//.form-field:focus {
+//    background: #fff;
+//    color: #5c6671;
+//    outline: none;
+//}

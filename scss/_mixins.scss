@@ -1,0 +1,253 @@
+// ==========================================================================
+// Mixins
+// ==========================================================================
+
+@mixin arrow($size: 10px, $color: #ccc, $direction: top){
+    @if $direction == "right" {
+        width: 0;
+        height: 0;
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left: $size solid $color;
+    } @else if $direction == "down" {
+        width: 0;
+        height: 0;
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-top: $size solid $color;
+    } @else if $direction == "left" {
+        width: 0;
+        height: 0;
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent; 
+        border-right:$size solid $color;
+    } @else {
+        width: 0;
+        height: 0;
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: $size solid $color;
+    }
+}
+
+@mixin background-clip($clip: padding){
+    -webkit-background-clip: #{$clip}-box;
+    -moz-background-clip: $clip;
+    background-clip: #{$clip}-box;
+}
+
+@mixin border-radius($radius: 3px){
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+
+    // Keeps the background color from leaking outside a border
+    @include background-clip();
+}
+
+@mixin border-radius-side($leftRight, $topBottom, $radius: 3px){
+    -webkit-border-#{$topBottom}-#{$leftRight}-radius: $radius;
+    border-#{$topBottom}-#{$leftRight}-radius: $radius;
+
+    // Keeps the background color from leaking outside a border
+    @include background-clip();
+}
+
+@mixin box-shadow($shadow-1, $shadow-2: false, $shadow-3: false, $shadow-4: false, $shadow-5: false, $shadow-6: false, $shadow-7: false, $shadow-8: false, $shadow-9: false){
+    //I am sure there is a shorter way to write this
+    @if $shadow-2 == false {
+        -webkit-box-shadow: $shadow-1;
+        -moz-box-shadow: $shadow-1;
+        box-shadow: $shadow-1;
+    } @else if $shadow-3 == false {
+        -webkit-box-shadow: $shadow-1, $shadow-2;
+        -moz-box-shadow: $shadow-1, $shadow-2;
+        box-shadow: $shadow-1, $shadow-2;
+    } @else if $shadow-4 == false {
+        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3;
+        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3;
+        box-shadow: $shadow-1, $shadow-2, $shadow-3;
+    } @else if $shadow-5 == false {
+        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4;
+        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4;
+        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4;
+    } @else if $shadow-6 == false {
+        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5;
+        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5;
+        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5;
+    } @else if $shadow-7 == false {
+        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6;
+        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6;
+        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6;
+    } @else if $shadow-8 == false {
+        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7;
+        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7;
+        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7;
+    } @else if $shadow-9 == false {
+        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8;
+        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8;
+        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8;
+    } @else {
+        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9;
+        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9;
+        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9;
+    }
+}
+
+@mixin box-sizing($box: border-box) {
+    // Paul Irish box sizing
+    -webkit-box-sizing: $box;
+    -moz-box-sizing: $box;
+    box-sizing: $box;
+}
+
+@mixin column($col-count: 2, $col-gap: 20px){
+    // Ignored in ie9 and earlier
+    -webkit-column-count: $col-count;
+    -moz-column-count: $col-count;
+    column-count: $col-count;
+
+    -webkit-column-gap: $col-gap;
+    -moz-column-gap: $col-gap;
+    column-gap: $col-gap;
+}
+
+@mixin column-rule($col-rule-width: 1px, $col-rule-style: solid, $col-rule-color: #ccc){
+    // Ignored in ie9 and earlier
+    -webkit-column-rule-width: $col-rule-width;
+    -moz-column-rule-width: $col-rule-width;
+    column-rule-width: $col-rule-width;
+
+    -webkit-column-rule-style: $col-rule-style;
+    -moz-column-rule-style: $col-rule-style;
+    column-rule-style: $col-rule-style;
+
+    -webkit-column-rule-color: $col-rule-color;
+    -moz-column-rule-color: $col-rule-color;
+    column-rule-color: $col-rule-color;
+}
+
+@mixin custom-scrollbar($width: .8em, $track: rgba(217, 217, 217, .5), $thumb: rgba(184, 184, 184, .5)){
+    ::-webkit-scrollbar {
+        width: $width;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: $track;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: $thumb;
+        @include box-shadow(inset .05em .05em 0 rgba(0, 0, 0, .1), inset 0 -.05em 0 rgba(0, 0, 0, .07));
+    }
+}
+
+@mixin gradient($start, $end){
+    background-color: $end;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($start),to($end));
+    background-image: -webkit-linear-gradient(top, $start, $end);
+    background-image: -moz-linear-gradient(top, $start, $end);
+    background-image: -o-linear-gradient(top, $start, $end);
+    background-image: -ms-linear-gradient(top, $start, $end);
+    background-image: linear-gradient(top, $start, $end);
+}
+
+@mixin opacity($opacity: 1){
+    opacity: $opacity;
+}
+
+@mixin selection($background: #0074c2, $color: #fff, $text-shadow: none ) {
+// Remove text-shadow in selection highlight: h5bp.com/i
+// These selection declarations have to be separate.
+    ::-moz-selection {
+        background: $background;
+        color: $color;
+        text-shadow: $text-shadow;
+    }
+    ::selection {
+        background: $background;
+        color: $color;
+        text-shadow: $text-shadow;
+    }
+}
+
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+
+@mixin transition($transition-1, $transition-2:false, $transition-3:false, $transition-4:false, $transition-5:false, $transition-6:false, $transition-7:false, $transition-8:false, $transition-9:false){
+    //I am sure there is a shorter way to write this
+    @if $transition-2 == false {
+        -webkit-transition: $transition-1;
+        -moz-transition: $transition-1;
+        -ms-transition: $transition-1;
+        -o-transition: $transition-1;
+        transition: $transition-1;
+    } @else if $transition-3 == false {
+        -webkit-transition: $transition-1, $transition-2;
+        -moz-transition: $transition-1, $transition-2;
+        -ms-transition: $transition-1, $transition-2;
+        -o-transition: $transition-1, $transition-2;
+        transition: $transition-1, $transition-2;
+    } @else if $transition-4 == false {
+        -webkit-transition: $transition-1, $transition-2, $transition-3;
+        -moz-transition: $transition-1, $transition-2, $transition-3;
+        -ms-transition: $transition-1, $transition-2, $transition-3;
+        -o-transition: $transition-1, $transition-2, $transition-3;
+        transition: $transition-1, $transition-2, $transition-3;
+    } @else if $transition-5 == false {
+        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4;
+        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4;
+        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4;
+        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4;
+        transition: $transition-1, $transition-2, $transition-3, $transition-4;
+    } @else if $transition-6 == false {
+        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5;
+        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5;
+        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5;
+        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5;
+        transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5;
+    } @else if $transition-7 == false {
+        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6;
+        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6;
+        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6;
+        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6;
+        transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6;
+    } @else if $transition-8 == false {
+        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7;
+        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7;
+        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7;
+        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7;
+        transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7;
+    } @else if $transition-9 == false {
+        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8;
+        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8;
+        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8;
+        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8;
+        transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8;
+    } @else {
+        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9;
+        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9;
+        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9;
+        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9;
+        transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9;
+    }
+}
+
+@mixin white-space(){
+    //Need to do a little research before writing this one
+}
+
+// ==========================================================================
+// IE Mixins
+// ==========================================================================
+
+@mixin ie-gradient($start, $end){
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{$start}', EndColorStr='#{$end}');
+}
+
+@mixin ie-opacity($opacity: 1){
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$opacity*100})";
+    filter: alpha(opacity=$opacity*100);
+}

@@ -1,0 +1,69 @@
+// ==========================================================================
+// Horizontal menu!
+// 
+// Include basic functionality and dropdowns.
+//
+// Add the tag .nav-horizontal to the top level ul and, BOOM, done!
+// ==========================================================================
+
+.nav-horizontal {
+    text-align: center;
+
+    a {
+        display: block;
+        padding: 0.4375em 0.8125em; // 7/16 13/16
+        color: #222;
+
+        &:visited {
+            color: #222;
+        }
+        &:hover {
+            color: #d22;
+            text-decoration: none;
+        }
+    }
+    li {
+        position: relative;
+        text-align: left;
+        z-index: 1;
+
+        &:hover {
+            background: #fbfdfd;
+        }
+
+        > ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 12.5em; // 200/16
+            margin: 0;
+            padding: 0;
+            background: #fbfdfd;
+
+            a {
+                @include transition(all .2s ease-in-out);
+
+                &:hover {
+                    padding-left: 1em;
+                }
+            }
+        }
+        li > ul {
+            left: 100%;
+            top: 0;
+        }
+        &:hover > ul {
+            display: block;
+        }
+    }
+    > ul {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+
+        > li {
+            float: left;
+        }
+    }
+}

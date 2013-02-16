@@ -1,0 +1,83 @@
+// ==========================================================================
+// Based on Bootstrap grids
+//
+// Customize the grid by changing the variable values.
+// ==========================================================================
+
+$width: 960; // width
+$columns: 12; // Number of columns
+$gutter: 20; // width of gutter
+
+$widescreen-width: 1200; // min-width of desktop query
+$widescreen-gutter: 30; // width of gutter
+
+// calculates column size
+$spacing: ($width - $gutter - (($columns - 1) * $gutter)) / $columns;
+
+// calculates column size
+$widescreen-spacing: ($widescreen-width - $widescreen-gutter - (($columns - 1) * $widescreen-gutter)) / $columns;
+
+.row {
+    margin-left: $gutter * -1px;
+    *zoom: 1;
+}
+
+.row:before,
+.row:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.row:after {
+    clear: both;
+}
+
+[class*="span"] {
+    float: left;
+    min-height: 1px;
+    margin-left: $gutter * 1px;
+}
+
+@for $i from 1 through $columns {
+    .span#{$i} {
+        width: ($spacing * $i * 1px) + ($gutter * $i) - $gutter;
+    }
+}
+
+@for $i from 1 through $columns {
+    .offset#{$i} {
+        margin-left: ($spacing * $i * 1px) + ($gutter * $i) + $gutter;
+    }
+}
+
+@media (min-width: $widescreen-width * 1px) {
+    @for $i from 1 through $columns {
+        .span#{$i} {
+            width: ($widescreen-spacing * $i * 1px) + ($widescreen-gutter * ($i - 1));
+        }
+    }
+    @for $i from 1 through $columns {
+        .offset#{$i} {
+            margin-left: ($widescreen-spacing * $i * 1px) + ($widescreen-gutter * $i) + $widescreen-gutter;
+        }
+    }
+    .row {
+        margin-left: $widescreen-gutter * -1px;
+    }
+    [class*="span"] {
+        margin-left: $widescreen-gutter * 1px;
+    }
+}
+
+@media (max-width: 767px) {
+    [class*="span"] {
+        display: block;
+        float: none;
+        width: 100%;
+        margin-left: 0;
+    }
+    .row {
+        margin-left: 0;
+    }
+}
