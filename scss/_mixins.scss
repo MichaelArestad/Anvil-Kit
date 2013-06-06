@@ -1,6 +1,90 @@
 // ==========================================================================
 // Mixins
+//
+// Available Mixins
+//    aimation
+//    animation-delay
+//    animation-direction
+//    animation-duration
+//    animation-fill-mode
+//    animation-iteration-count
+//    animation-name
+//    animation-play-state
+//    animation-timing-function
+//    arrow
+//    arrow-lazy
+//    background-clip
+//    background-origin
+//    background-size
+//    border-radius
+//    border-radius-corner
+//    box-shadow
+//    box-sizing
+//    column
+//    column-rule
+//    custom-scrollbar
+//    gradient
+//    keyframes
+//    opacity
+//    placeholder
+//    replace-image
+//    retina-background
+//    selection
+//    text-decoration-color
+//    transform
+//    transform-origin
+//    transition
+//
+// IE Mixins
+//    ie-gradient
+//    ie-opacity
 // ==========================================================================
+
+@mixin animation($animation...){
+    -webkit-animation: $animation;
+    -moz-animation: $animation;
+    animation: $animation;
+}
+
+@mixin animation-delay($delay){
+    -webkit-animation-delay: $delay;
+    animation-delay: $delay;
+}
+
+@mixin animation-direction($direction){
+    -webkit-animation-direction: $direction;
+    animation-direction: $direction;
+}
+
+@mixin animation-duration($duration){
+    -webkit-animation-duration: $duration;
+    animation-duration: $duration;
+}
+
+@mixin animation-fill-mode($fill-mode){
+    -webkit-animation-fill-mode: $fill-mode;
+    animation-fill-mode: $fill-mode;
+}
+
+@mixin animation-iteration-count($iteration-count){
+    -webkit-animation-iteration-count: $iteration-count;
+    animation-iteration-count: $iteration-count;
+}
+
+@mixin animation-name($name){
+    -webkit-animation-name: $name;
+    animation-name: $name;
+}
+
+@mixin animation-play-state($play-state){
+    -webkit-animation-play-state: $play-state;
+    animation-play-state: $play-state;
+}
+
+@mixin animation-timing-function($timing-function...){
+    -webkit-animation-timing-function: $timing-function;
+    animation-timing-function: $timing-function;
+}
 
 @mixin arrow($size: 10px, $color: #ccc, $direction: top){
     @if $direction == "right" {
@@ -30,10 +114,72 @@
     }
 }
 
+@mixin arrow-lazy($direction: top, $size: 10px, $color: #ccc, $center: 50%, $margin: -1px, $pseudo: before){
+    position: relative;
+    border-color: $color;
+
+    &:#{$pseudo} {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 0;
+        border-color: $color;
+
+        @if $direction == "right" {
+            top: $center;
+            left: 100%;
+            margin-left: $margin;
+            margin-top: $size * -1;
+            border-top: $size solid transparent;
+            border-bottom: $size solid transparent;
+            border-left: $size solid $color;
+            border-left-color: inherit;
+        } @else if $direction == "down" {
+            top: 100%;
+            left: $center;
+            margin-top: $margin;
+            margin-left: $size * -1;
+            border-left: $size solid transparent;
+            border-right: $size solid transparent;
+            border-top: $size solid $color;
+            border-top-color: inherit;
+        } @else if $direction == "left" {
+            top: $center;
+            right: 100%;
+            margin-right: $margin;
+            margin-top: $size * -1;
+            border-top: $size solid transparent;
+            border-bottom: $size solid transparent; 
+            border-right:$size solid $color;
+            border-right-color: inherit;
+        } @else {
+            bottom: 100%;
+            left: $center;
+            margin-bottom: $margin;
+            margin-left: $size * -1;
+            border-left: $size solid transparent;
+            border-right: $size solid transparent;
+            border-bottom: $size solid $color;
+            border-bottom-color: inherit;
+        }
+    }
+}
+
 @mixin background-clip($clip: padding){
     -webkit-background-clip: #{$clip}-box;
     -moz-background-clip: $clip;
     background-clip: #{$clip}-box;
+}
+
+@mixin background-origin($origin: padding-box){
+    -moz-background-origin: $origin;
+    background-origin: $origin;
+}
+
+@mixin background-size($size: cover){
+    -moz-background-size: $size; // Firefox 3.6, 
+    -o-background-size: $size; // Opera 10 - 10.1
+    background-size: $size; // IE9+, Firefox 4+, Chrome 4+, Safari 3.1+ (?), Opera 10.5+
 }
 
 @mixin border-radius($radius: 3px){
@@ -44,7 +190,7 @@
     @include background-clip();
 }
 
-@mixin border-radius-side($leftRight, $topBottom, $radius: 3px){
+@mixin border-radius-corner($leftRight, $topBottom, $radius: 3px){
     -webkit-border-#{$topBottom}-#{$leftRight}-radius: $radius;
     border-#{$topBottom}-#{$leftRight}-radius: $radius;
 
@@ -52,52 +198,17 @@
     @include background-clip();
 }
 
-@mixin box-shadow($shadow-1, $shadow-2: false, $shadow-3: false, $shadow-4: false, $shadow-5: false, $shadow-6: false, $shadow-7: false, $shadow-8: false, $shadow-9: false){
-    //I am sure there is a shorter way to write this
-    @if $shadow-2 == false {
-        -webkit-box-shadow: $shadow-1;
-        -moz-box-shadow: $shadow-1;
-        box-shadow: $shadow-1;
-    } @else if $shadow-3 == false {
-        -webkit-box-shadow: $shadow-1, $shadow-2;
-        -moz-box-shadow: $shadow-1, $shadow-2;
-        box-shadow: $shadow-1, $shadow-2;
-    } @else if $shadow-4 == false {
-        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3;
-        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3;
-        box-shadow: $shadow-1, $shadow-2, $shadow-3;
-    } @else if $shadow-5 == false {
-        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4;
-        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4;
-        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4;
-    } @else if $shadow-6 == false {
-        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5;
-        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5;
-        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5;
-    } @else if $shadow-7 == false {
-        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6;
-        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6;
-        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6;
-    } @else if $shadow-8 == false {
-        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7;
-        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7;
-        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7;
-    } @else if $shadow-9 == false {
-        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8;
-        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8;
-        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8;
-    } @else {
-        -webkit-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9;
-        -moz-box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9;
-        box-shadow: $shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9;
-    }
+@mixin box-shadow($shadow...){
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
 }
 
 @mixin box-sizing($box: border-box) {
     // Paul Irish box sizing
-    -webkit-box-sizing: $box;
-    -moz-box-sizing: $box;
-    box-sizing: $box;
+    -webkit-box-sizing: $box; // Chrome 4 - 9, Safari 3.1 - 5.0
+    -moz-box-sizing: $box; // Firefox 2+
+    box-sizing: $box; // IE8+, Chrome 10+, Safari 5.1+, Opera 9.5+
 }
 
 @mixin column($col-count: 2, $col-gap: 20px){
@@ -149,8 +260,58 @@
     background-image: linear-gradient(top, $start, $end);
 }
 
-@mixin opacity($opacity: 1){
-    opacity: $opacity;
+@mixin keyframes($name){
+    @-webkit-keyframes $name {
+        @content;
+    }
+    @-moz-keyframes $name {
+        @content;
+    }
+    @-o-keyframes $name {
+        @content;
+    }
+    @keyframes $name {
+        @content;
+    }
+}
+
+@mixin placeholder() {
+    ::-webkit-input-placeholder {
+        @content;
+    }
+    :-moz-placeholder { // Firefox 18-
+        @content; 
+    }
+    ::-moz-placeholder {  // Firefox 19+
+        @content; 
+    }
+    :-ms-input-placeholder {  
+        @content; 
+    }
+}
+
+@mixin replace-image($url, $width, $height) {
+    // I totally stole this idea from Marcel Shields.
+    // Read his article: http://css-tricks.com/replace-the-image-in-an-img-with-css/
+    display: block;
+    width: $width; // Width of new image
+    height: $height; // Height of new image
+    padding-left: $width; // Equal to width of new image
+    background: url($url) no-repeat;
+}
+
+@mixin retina-background ($url, $file-type, $width: auto, $repeat: repeat, $ratio: 1.5, $suffix: "@2x") {
+    background: url($url + "." + $file-type);
+    background-repeat: $repeat;
+    /* Media queries from https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/css3/_hidpi-media-query.scss */
+    @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
+        only screen and (min--moz-device-pixel-ratio: $ratio),
+        only screen and (-o-min-device-pixel-ratio: #{$ratio}/1),
+        only screen and (min-resolution: #{round($ratio*96)}dpi),
+        only screen and (min-resolution: #{$ratio}dppx) {
+        background: url($url + $suffix + "." + $file-type);
+        background-size: $width auto;
+    }
 }
 
 @mixin selection($background: #0074c2, $color: #fff, $text-shadow: none ) {
@@ -168,7 +329,13 @@
     }
 }
 
-@mixin transform($transform) {
+@mixin text-decoration-color($color) {
+    -webkit-text-decoration-color:$color;
+    -moz-text-decoration-color:$color;
+    text-decoration-color:$color;
+}
+
+@mixin transform($transform...) {
     -webkit-transform: $transform;
     -moz-transform: $transform;
     -ms-transform: $transform;
@@ -176,68 +343,22 @@
     transform: $transform;
 }
 
-@mixin transition($transition-1, $transition-2:false, $transition-3:false, $transition-4:false, $transition-5:false, $transition-6:false, $transition-7:false, $transition-8:false, $transition-9:false){
-    //I am sure there is a shorter way to write this
-    @if $transition-2 == false {
-        -webkit-transition: $transition-1;
-        -moz-transition: $transition-1;
-        -ms-transition: $transition-1;
-        -o-transition: $transition-1;
-        transition: $transition-1;
-    } @else if $transition-3 == false {
-        -webkit-transition: $transition-1, $transition-2;
-        -moz-transition: $transition-1, $transition-2;
-        -ms-transition: $transition-1, $transition-2;
-        -o-transition: $transition-1, $transition-2;
-        transition: $transition-1, $transition-2;
-    } @else if $transition-4 == false {
-        -webkit-transition: $transition-1, $transition-2, $transition-3;
-        -moz-transition: $transition-1, $transition-2, $transition-3;
-        -ms-transition: $transition-1, $transition-2, $transition-3;
-        -o-transition: $transition-1, $transition-2, $transition-3;
-        transition: $transition-1, $transition-2, $transition-3;
-    } @else if $transition-5 == false {
-        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4;
-        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4;
-        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4;
-        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4;
-        transition: $transition-1, $transition-2, $transition-3, $transition-4;
-    } @else if $transition-6 == false {
-        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5;
-        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5;
-        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5;
-        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5;
-        transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5;
-    } @else if $transition-7 == false {
-        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6;
-        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6;
-        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6;
-        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6;
-        transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6;
-    } @else if $transition-8 == false {
-        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7;
-        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7;
-        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7;
-        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7;
-        transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7;
-    } @else if $transition-9 == false {
-        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8;
-        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8;
-        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8;
-        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8;
-        transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8;
-    } @else {
-        -webkit-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9;
-        -moz-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9;
-        -ms-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9;
-        -o-transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9;
-        transition: $transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9;
-    }
+@mixin transform-origin($value) {
+    -webkit-transform-origin: $value; // Chrome 4+ Safari 3.1+
+    -moz-transform-origin: $value; // Firefox 3.5+
+    -o-transform-origin: $value; // Opera 10.5+
+    -ms-transform-origin: $value; // IE9+
+    transform-origin: $value;
 }
 
-@mixin white-space(){
-    //Need to do a little research before writing this one
+@mixin transition($transition...){
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -ms-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
 }
+
 
 // ==========================================================================
 // IE Mixins
