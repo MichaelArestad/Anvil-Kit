@@ -1,0 +1,34 @@
+// ==========================================================================
+// View layout
+// Use when you need to quickly see your grid structure
+//
+// Adapted for Anvil by @see8ch
+// ==========================================================================
+
+
+// ==========================================================================
+// Mixin
+// ==========================================================================
+
+@mixin mark($color) {
+    outline: 4px solid rgba($color, 0.25) !important;
+    background-color: rgba($color, 0.15) !important;
+}
+
+
+// ==========================================================================
+// Elements to mark
+// Add your own selectors for a more complete grid
+// ==========================================================================
+
+// Example:
+// .container {
+//     @include mark(green);
+// }
+
+.row {
+    @include mark(blue);
+}
+[class*="span"] {
+    @include mark(red);
+}
