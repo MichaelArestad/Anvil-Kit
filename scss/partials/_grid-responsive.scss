@@ -52,6 +52,9 @@ $widescreen-spacing: ($widescreen-width - $widescreen-gutter - (($columns - 1) *
 }
 
 @media (min-width: $widescreen-width * 1px) {
+    [class*="span"] {
+        margin-left: $widescreen-gutter * 1px;
+    }
     @for $i from 1 through $columns {
         .span#{$i} {
             width: ($widescreen-spacing * $i * 1px) + ($widescreen-gutter * ($i - 1));
@@ -64,9 +67,6 @@ $widescreen-spacing: ($widescreen-width - $widescreen-gutter - (($columns - 1) *
     }
     .row {
         margin-left: $widescreen-gutter * -1px;
-    }
-    [class*="span"] {
-        margin-left: $widescreen-gutter * 1px;
     }
 }
 
