@@ -20,10 +20,10 @@ Copyright:
 @import "_base"; // Contains base element styling
 
 // Begin partials
-@import "partials/_nav-horizontal"; // Horizontal menus
+@import "partials/_grid-responsive"; // Responsive Bootstrap grid
 @import "partials/_buttons"; // Funk button styles
 @import "partials/_form"; // Form and input styles
-@import "partials/_grid-responsive"; // Responsive Bootstrap grid
+@import "partials/_nav-horizontal"; // Horizontal menus
 @import "partials/_menu-hamburger"; // Responsive slide-in "hamburger icon" menu
 // End partials
 

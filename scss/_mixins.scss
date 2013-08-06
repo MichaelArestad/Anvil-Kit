@@ -250,6 +250,24 @@
     }
 }
 
+@mixin epic-sides() {
+    // Still testing this one
+    position: relative;
+    z-index: 1;
+
+    &:before {
+        position: absolute;
+        content: "";
+        display: block;
+        top: 0;
+        left: -5000px;
+        height: 100%;
+        width: 15000px;
+        z-index: -1;
+        @content;
+    }
+}
+
 @mixin gradient($start, $end){
     background-color: $end;
     background-image: -webkit-gradient(linear, left top, left bottom, from($start),to($end));
@@ -303,7 +321,7 @@
 @mixin retina-background ($url, $file-type, $width: auto, $repeat: repeat, $ratio: 1.5, $suffix: "@2x") {
     background: url($url + "." + $file-type);
     background-repeat: $repeat;
-    /* Media queries from https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/css3/_hidpi-media-query.scss */
+    // Media queries from http://git.io/k-x0wA
     @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
         only screen and (min--moz-device-pixel-ratio: $ratio),
         only screen and (-o-min-device-pixel-ratio: #{$ratio}/1),

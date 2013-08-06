@@ -26,9 +26,24 @@
 //     @include mark(green);
 // }
 
+// _grid-responsive
 .row {
     @include mark(blue);
 }
 [class*="span"] {
     @include mark(red);
+}
+
+// Creates a line down the middle of the window to help with centering.
+html:after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin-left: -2px;
+    width: 50%;
+    border-right: 4px rgba(blue, 0.25) solid;
+    z-index: 99;
+    pointer-events: none; // Lets users interact with the site normally
 }
